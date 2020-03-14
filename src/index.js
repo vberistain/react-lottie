@@ -15,6 +15,7 @@ export default class Lottie extends Component {
     isPaused: PropTypes.bool,
     speed: PropTypes.number,
     segments: PropTypes.arrayOf(PropTypes.number),
+    forceSegments: PropTypes.bool,
     direction: PropTypes.number,
     ariaRole: PropTypes.string,
     ariaLabel: PropTypes.string,
@@ -38,7 +39,7 @@ export default class Lottie extends Component {
     className: "",
     tabIndex: 0
   };
-  
+
   componentDidMount() {
     const { options, eventListeners } = this.props;
     const {
@@ -47,6 +48,7 @@ export default class Lottie extends Component {
       animationData,
       rendererSettings,
       segments,
+      forceSegments
     } = options;
 
     this.options = {
@@ -55,8 +57,9 @@ export default class Lottie extends Component {
       loop: loop !== false,
       autoplay: autoplay !== false,
       segments: segments !== false,
+      forceSegments,
       animationData,
-      rendererSettings,
+      rendererSettings
     };
 
     this.options = { ...this.options, ...options };
@@ -148,7 +151,7 @@ export default class Lottie extends Component {
     } else {
       this.anim.pause();
     }
-  }
+  };
 
   render() {
     const {
@@ -168,19 +171,18 @@ export default class Lottie extends Component {
       width: getSize(width),
       height: getSize(height),
       outline: "none",
-      ...style,
+      ...style
     };
 
-    const onClickHandler =
-      isClickToPauseDisabled
-        ? () => null
-        : this.handleClickToPause;
+    const onClickHandler = isClickToPauseDisabled
+      ? () => null
+      : this.handleClickToPause;
     const Element = renderAs;
     return (
       // Bug with eslint rules https://github.com/airbnb/javascript/issues/1374
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <Element
-        ref={(c) => {
+        ref={c => {
           this.el = c;
         }}
         className={className}
